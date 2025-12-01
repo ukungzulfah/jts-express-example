@@ -2,6 +2,8 @@
 
 A production-ready Express.js server with TypeScript implementing the **Janus Token System (JTS)** - a two-component authentication architecture for secure, revocable, and stateless API authentication.
 
+This project uses **@engjts/auth**, a modern implementation of JTS that provides enhanced security and performance over the original jts-core package.
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -26,6 +28,16 @@ Janus Token System (JTS) is a modern authentication architecture that separates 
 - **BearerPass**: A short-lived token (default: 5 minutes) used in the `Authorization` header for API requests. It contains user identity, permissions, and is cryptographically signed.
 
 - **StateProof**: A long-lived token (default: 7 days) stored as an HttpOnly cookie. It serves as a session anchor for token renewal and revocation.
+
+### Package: @engjts/auth
+
+This implementation uses **@engjts/auth**, an enterprise-grade authentication library built on JTS. It provides:
+
+- Full JTS specification compliance
+- Type-safe TypeScript support
+- High performance cryptographic operations
+- Battle-tested session management
+- Production-ready error handling
 
 ### Why JTS?
 
@@ -68,7 +80,7 @@ cd jts-express-server
 ### Step 2: Install Dependencies
 
 ```bash
-npm install express jts-core dotenv cookie-parser
+npm install express @engjts/auth dotenv cookie-parser
 npm install -D typescript ts-node-dev ts-node @types/express @types/node @types/cookie-parser
 ```
 
@@ -215,7 +227,7 @@ export const config = {
 Create `src/jts/index.ts`:
 
 ```typescript
-import { JTSAuthServer, JTSResourceServer, InMemorySessionStore } from 'jts-core';
+import { JTSAuthServer, JTSResourceServer, InMemorySessionStore } from '@engjts/auth';
 import * as fs from 'fs';
 import { config } from '../config';
 
@@ -271,7 +283,7 @@ Create `src/middleware/auth.ts`:
 
 ```typescript
 import { Request, Response, NextFunction } from 'express';
-import { jtsAuth, jtsRequirePermissions, JTSError, JTSPayload, JTSHeader } from 'jts-core';
+import { jtsAuth, jtsRequirePermissions, JTSError, JTSPayload, JTSHeader } from '@engjts/auth';
 import { resourceServer } from '../jts';
 
 // Extend Express Request with JTS context
@@ -653,7 +665,7 @@ export function validatePassword(user: User, password: string): boolean {
 Create `src/scripts/keygen.ts`:
 
 ```typescript
-import { generateECKeyPair } from 'jts-core';
+import { generateECKeyPair } from '@engjts/auth';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -945,7 +957,7 @@ All mutating endpoints (`/jts/login`, `/jts/renew`, `/jts/logout`) require the `
 Replace `InMemorySessionStore` with Redis or PostgreSQL:
 
 ```typescript
-import { RedisSessionStore } from 'jts-core';
+import { RedisSessionStore } from '@engjts/auth';
 import Redis from 'ioredis';
 
 const redis = new Redis(process.env.REDIS_URL);
@@ -1009,9 +1021,9 @@ Implement a key rotation strategy:
 
 ## Resources
 
-- [JTS Core on npm](https://www.npmjs.com/package/jts-core)
-- [JTS Core on GitHub](https://github.com/ukungzulfah/jts-core)
-- [JTS Specification](https://github.com/ukungzulfah/jts-core/blob/main/JTS_Specification_v1-en.md)
+- [EnGJTS Auth on npm](https://www.npmjs.com/package/@engjts/auth)
+- [EnGJTS Auth on GitHub](https://github.com/engjts/auth)
+- [JTS Specification](https://github.com/ukungzulfah/jts-spec/blob/main/JTS_Specification_v1-en.md)
 
 ---
 
