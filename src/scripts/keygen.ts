@@ -1,4 +1,4 @@
-import { generateECKeyPair } from 'jts-core';
+import { generateECKeyPair } from '@engjts/auth';
 import * as fs from 'fs';
 import * as path from 'path';
 

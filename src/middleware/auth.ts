@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { jtsAuth, jtsRequirePermissions, JTSError, JTSPayload, JTSHeader } from 'jts-core';
+import { jtsAuth, jtsRequirePermissions, JTSError, JTSPayload, JTSHeader } from '@engjts/auth';
 import { resourceServer } from '../jts';
 
 // Extend Express Request type with JTS context

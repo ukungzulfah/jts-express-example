@@ -1,4 +1,4 @@
-import { JTSAuthServer, JTSResourceServer, InMemorySessionStore } from 'jts-core';
+import { JTSAuthServer, JTSResourceServer, InMemorySessionStore } from '@engjts/auth';
 import * as fs from 'fs';
 import { config } from '../config';
 
