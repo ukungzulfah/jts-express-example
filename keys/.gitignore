@@ -1,0 +1,3 @@
+# Keys directory - keep private keys secret!
+*.pem
+*.json
